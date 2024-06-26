@@ -148,7 +148,7 @@
         <div class="row text">
           <div class="col-md-6 offset-md-3">
             <div class="row my-2">
-              <div class="col">
+              <div class="col" id="first_name_block">
                 <label for="first_name">First name</label>
                 <input
                   type="text"
@@ -157,10 +157,15 @@
                   class="form-control"
                   placeholder="First name"
                   aria-label="First name"
+                  maxlength="50"
+                  required=""required
                 />
+                <div class="invalid-feedback">
+                  Please enter a valid first name
+                </div>
               </div>
-              <div class="col">
-                <label for="last_name">First name</label>
+              <div class="col" id="last_name_block">
+                <label for="last_name">Last name</label>
                 <input
                   name="last_name"
                   id="last_name"
@@ -168,6 +173,9 @@
                   class="form-control"
                   placeholder="Last name"
                   aria-label="Last name"
+                  minlength="2"
+                  maxlength="50"
+                  required="required"
                 />
               </div>
             </div>
@@ -182,17 +190,29 @@
                   class="form-control"
                   placeholder="Email"
                   aria-label="Email"
+                  required
                 />
               </div>
               <div class="col">
                 <label for="phone">Phone</label>
                 <input
                   name="phone"
-                  type="number"
+                  id="phone"
+                  type="text"
                   class="form-control"
                   placeholder="Phone"
                   aria-label="Phone"
+                  required
+                  inputmode="numeric"
+                  pattern="[6789][0-9]{9}"
                 />
+              </div>
+            </div>
+
+            <div class="row my-2">
+              <div class="col">
+                <label for="message">Message</label>
+                <textarea class="form-control" name="message" id="message"></textarea>
               </div>
             </div>
 

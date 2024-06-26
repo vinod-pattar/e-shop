@@ -9,43 +9,67 @@ enquiryForm.addEventListener("submit", function(event) {
     const last_name = event.target.last_name.value;
     const email = event.target.email.value;
     const phone = event.target.phone.value;
+    const message = event.target.message.value;
 
-    let isAllDataValid = false;
+    let isFirstNameValid, isLastNameValid, isEmailValid, isPhoneValid = false;
 
     if(first_name !== "" && first_name?.length > 2) {
         console.log("First Name is valid");
-        isAllDataValid = true;
+        isFirstNameValid = true;
+        const input = document.getElementById("first_name");
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
     }
     else {
-        isAllDataValid = false;
+        isFirstNameValid = false;
+        const input = document.getElementById("first_name");
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
     }
 
     if(last_name !== "" && last_name?.length > 2) {
         console.log("Last Name is valid");
-        isAllDataValid = true;
+        isLastNameValid = true;
+        const input = document.getElementById("last_name");
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
     }
     else {
-        isAllDataValid = false;
+        isLastNameValid = false;
+        const input = document.getElementById("last_name");
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
     }
 
     if(email !== "" && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
         console.log("Email is valid");
-        isAllDataValid = true;
+        isEmailValid = true;
+        const input = document.getElementById("email");
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
     }
     else {
-        isAllDataValid = false;
+        isEmailValid = false;
+        const input = document.getElementById("email");
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
     }
 
     if(phone !== "" && /^[6-9]\d{9}$/.test(phone)) {
         console.log("Phone is valid");
-        isAllDataValid = true;
+        isPhoneValid = true;
+        const input = document.getElementById("phone");
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
     }
-
     else {
-        isAllDataValid = false;
+        isPhoneValid = false;
+        const input = document.getElementById("phone");
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
     }
 
-    if(isAllDataValid) {
+    if(isFirstNameValid && isLastNameValid && isEmailValid && isPhoneValid) {
         console.log("All data is valid");
         fetch('https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTY1MDYzMjA0M2M1MjY0NTUzNjUxMzUi_pc', {
             method: 'POST',
@@ -56,7 +80,8 @@ enquiryForm.addEventListener("submit", function(event) {
                 first_name,
                 last_name,
                 email,
-                phone
+                phone,
+                message
             })
         }).then(function(response) {
             return response.json()
@@ -65,6 +90,17 @@ enquiryForm.addEventListener("submit", function(event) {
             console.log(data);
             alert("Enquiry submitted successfully")
             enquiryForm.reset()
+            const firstName = document.getElementById("first_name")
+            firstName.classList.remove("is-valid")
+
+            const lastName = document.getElementById("last_name")
+            lastName.classList.remove("is-valid")
+
+            const email = document.getElementById("email")
+            email.classList.remove("is-valid")
+
+            const phone = document.getElementById("phone")
+            phone.classList.remove("is-valid")
         }).catch(function(error) {
             console.log(error);
         })
